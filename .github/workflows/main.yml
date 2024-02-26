@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Navigate to project directory
-        run: cd Xamarin-test/Xamarin-test/Blank
+        run: cd Xamarin-test/Blank
 
       - name: Check current directory
         run: pwd
