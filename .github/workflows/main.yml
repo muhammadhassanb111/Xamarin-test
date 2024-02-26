@@ -18,10 +18,12 @@ jobs:
             pwd
 
       - name: Navigate to project directory
-        run: cd Blank
+        run: cd /Blank
 
       - name: Check current directory
-        run: pwd
+        run: |
+         pwd
+         ls
 
       - name: Restore NuGet packages
         run: dotnet restore
