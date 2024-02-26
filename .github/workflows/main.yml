@@ -16,18 +16,8 @@ jobs:
         run: |
             ls
             pwd
-
-      - name: Navigate to project directory
-        run: cd Blank/
-
-      - name: Check current directory
-        run: |
-         pwd
-         ls
-
-      - name: Restore NuGet packages
-        run: dotnet restore
-
+            cd Blank/
+            dotnet restore
       - name: Build Android app
         run: |
           cd Blank.Android
