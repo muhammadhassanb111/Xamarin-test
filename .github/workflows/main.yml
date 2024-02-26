@@ -22,11 +22,15 @@ jobs:
         run: |
           pwd
           cd Blank/Blank.Android
+          ls
+          pwd
           msbuild Blank.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
 
       - name: Build iOS app
         run: |
           cd Blank/Blank.iOS
+          ls
+          pwd
           msbuild Blank.iOS.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:Platform=iPhone
 
       - name: Upload Android artifact
