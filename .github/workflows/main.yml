@@ -12,9 +12,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Navigate to project directory
+        run: |
+            ls
+            pwd
 
       - name: Navigate to project directory
-        run: cd Xamarin-test/Blank
+        run: cd muhammadhassanb111/Xamarin-test/Blank
 
       - name: Check current directory
         run: pwd
