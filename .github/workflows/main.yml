@@ -1,7 +1,3 @@
-name: 'Xamarin iOS Device, Simulator and Android'
-author: 'Saamer Mansoor'
-description: 'Set up a CI/CD pipeline for your iOS & Android using GitHub Actions workflow, regardless if it's using Xamarin Forms or Native'
-
 on: [push, pull_request]
 
 jobs:
