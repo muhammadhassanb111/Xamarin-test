@@ -18,27 +18,28 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
+      - name: Navigate to project directory
+        run: cd Xamarin.Forms-Samples
+
       - name: Restore NuGet packages
         run: dotnet restore
 
       - name: Build Android app
         run: |
-          cd Xamarin.Forms-Samples
           dotnet build -c Release -t:restore,build /p:Configuration=Release /p:Platform=AnyCPU /p:AndroidBuildApplicationPackage=true /p:AndroidSdkBuildToolsVersion=29.0.2
 
       - name: Build iOS app
         run: |
-          cd Xamarin.Forms-Samples
           dotnet build -c Release -t:restore,build /p:Configuration=Release /p:Platform=iPhone
 
       - name: Upload Android artifact
         uses: actions/upload-artifact@v2
         with:
           name: Android
-          path: Xamarin.Forms-Samples/DualScreen.Droid/bin/Release/com.example.app.apk
+          path: DualScreen.Droid/bin/Release/com.example.app.apk
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v2
         with:
           name: iOS
-          path: Xamarin.Forms-Samples/DualScreen.iOS/bin/iPhone/Release/DualScreen.iOS.app
+          path: DualScreen.iOS/bin/iPhone/Release/DualScreen.iOS.app
