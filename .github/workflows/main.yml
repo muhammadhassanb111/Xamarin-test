@@ -1,19 +1,31 @@
-on: [push, pull_request]
+name: CI Build Pipeline
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
   Practice:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Run a one-line script
         run: echo Hello, world!
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo "Add other actions to build,"
+          echo "test, and deploy your project."
       - name: Show what's in there
-        run: |
-          ls
+        run: ls
       - name: Show what is inside
         run: |
           cd ..
@@ -22,14 +34,16 @@ jobs:
   Android:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Android
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build and Package Android App
         run: |
           cd Blank
           nuget restore
           cd Blank.Android
           msbuild Blank.Android.csproj /verbosity:normal /t:Rebuild /t:PackageForAndroid /t:SignAndroidPackage /p:Configuration=Debug 
-      - uses: actions/upload-artifact@v2
+      - name: Upload Android App Artifact
+        uses: actions/upload-artifact@v2
         with:
           name: Android App
           path: Blank/Blank.Android/bin/Debug/com.tfp.blank-Signed.apk
@@ -39,12 +53,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: iOS Simulator
+      - name: Build iOS Simulator App
         run: |
           cd Blank
           nuget restore
           msbuild Blank.iOS/Blank.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
-      - uses: actions/upload-artifact@v2
+      - name: Upload iOS Simulator App Artifact
+        uses: actions/upload-artifact@v2
         with:
           name: iOS Simulator App
           path: Blank/Blank.iOS/bin/iPhoneSimulator/Debug/Blank.iOS.app
@@ -82,12 +97,13 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles   
-      - name: iOS Device
+      - name: Build iOS Device App
         run: |
           cd Blank
           nuget restore
           msbuild Blank.iOS/Blank.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhone /p:Configuration=Debug
-      - uses: actions/upload-artifact@v2
+      - name: Upload iOS Device App Artifact
+        uses: actions/upload-artifact@v2
         with:
           name: iOS Device App
           path: Blank/Blank.iOS/bin/iPhone/Debug/Blank.iOS.app      
