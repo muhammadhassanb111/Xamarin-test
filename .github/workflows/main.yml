@@ -18,7 +18,7 @@ jobs:
             pwd
 
       - name: Navigate to project directory
-        run: cd muhammadhassanb111/Xamarin-test/Blank
+        run: cd Blank
 
       - name: Check current directory
         run: pwd
