@@ -106,8 +106,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: iOS Device App
-          path: Blank/Blank.iOS/bin/iPhone/Debug/Blank.iOS.app      
-
-branding:
-  icon: 'archive'
-  color: 'green'
+          path: Blank/Blank.iOS/bin/iPhone/Debug/Blank.iOS.app
