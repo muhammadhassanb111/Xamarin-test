@@ -20,6 +20,7 @@ jobs:
             dotnet restore
       - name: Build Android app
         run: |
+          pwd
           cd Blank.Android
           msbuild Blank.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
 
