@@ -13,33 +13,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '6.0.x'
-
       - name: Navigate to project directory
-        run: cd Xamarin.Forms-Samples
+        run: cd Xamarin-GitHubActions-DevOps/Blank
 
       - name: Restore NuGet packages
         run: dotnet restore
 
       - name: Build Android app
         run: |
-          dotnet build -c Release -t:restore,build /p:Configuration=Release /p:Platform=AnyCPU /p:AndroidBuildApplicationPackage=true /p:AndroidSdkBuildToolsVersion=29.0.2
+          cd Blank.Android
+          msbuild Blank.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
 
       - name: Build iOS app
         run: |
-          dotnet build -c Release -t:restore,build /p:Configuration=Release /p:Platform=iPhone
+          cd Blank.iOS
+          msbuild Blank.iOS.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:Platform=iPhone
 
       - name: Upload Android artifact
         uses: actions/upload-artifact@v2
         with:
           name: Android
-          path: DualScreen.Droid/bin/Release/com.example.app.apk
+          path: Blank/Blank.Android/bin/Release/com.tfp.blank-Signed.apk
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v2
         with:
           name: iOS
-          path: DualScreen.iOS/bin/iPhone/Release/DualScreen.iOS.app
+          path: Blank/Blank.iOS/bin/iPhone/Release/Blank.iOS.app
